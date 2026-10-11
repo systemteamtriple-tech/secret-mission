@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>館の記録</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Shippori+Mincho:wght@400;600;700&display=swap">
+<style>
+/* Layout: one candlelit card per record, centered column, a ledger of found records below. Single deliberate dark look. */
+:root{
+  --ink:#0f0d14;
+  --panel:#1a1620;
+  --gold:#c9a45c;
+  --gold-dim:#8a7147;
+  --parch:#efe4cc;
+  --muted:#a89a80;
+  --wine:#6e1f2b;
+  --display:"Cinzel","Times New Roman",serif;
+  --body:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+  color-scheme:dark;
+}
+html,body{background:var(--ink);color:var(--parch);margin:0}
+[hidden]{display:none!important}
+body{font-family:var(--body);line-height:1.9;padding-inline:16px;padding-block:28px 48px;
+  background:radial-gradient(ellipse at 50% -10%, #2a2030 0%, var(--ink) 60%) fixed var(--ink);min-height:100%}
+.wrap{max-width:30rem;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+header{text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center}
+.eyebrow{font-family:var(--display);letter-spacing:.32em;font-size:.72rem;color:var(--gold)}
+h1{font-family:var(--display);font-weight:600;font-size:1.5rem;letter-spacing:.12em;margin:0;color:var(--parch);text-wrap:balance}
+.sub{font-size:.85rem;color:var(--muted);margin:0}
+.rule{width:140px;height:14px;color:var(--gold-dim)}
+.card{position:relative;background:var(--panel);border:1px solid var(--gold-dim);padding:34px 24px 30px;
+  outline:1px solid rgba(201,164,92,.25);outline-offset:-8px;text-align:center}
+.card .no{font-family:var(--display);font-size:2.6rem;line-height:1;color:var(--gold);margin:0}
+.card .label{font-family:var(--display);letter-spacing:.3em;font-size:.7rem;color:var(--muted);margin:6px 0 22px}
+.card blockquote{margin:0;font-size:1.22rem;font-weight:600;line-height:2;color:var(--parch);text-wrap:balance}
+.seal{display:block;margin:22px auto 0;width:44px;height:44px;color:var(--wine)}
+.task{border-top:1px solid rgba(201,164,92,.3);border-bottom:1px solid rgba(201,164,92,.3);padding-block:14px;font-size:.92rem;text-align:center;color:var(--parch)}
+.task strong{color:var(--gold);font-weight:600}
+.ledger h2{font-family:var(--display);font-size:.8rem;letter-spacing:.3em;color:var(--gold);margin:0 0 10px;text-align:center;font-weight:600}
+.count{text-align:center;font-family:var(--display);font-size:1.6rem;color:var(--parch);margin:0 0 12px;font-variant-numeric:tabular-nums}
+.count small{font-size:.9rem;color:var(--muted)}
+ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+li{display:grid;grid-template-columns:2.4rem 1fr;gap:10px;align-items:start;padding:10px 12px;border:1px solid rgba(201,164,92,.18);font-size:.9rem;line-height:1.7}
+li .n{font-family:var(--display);color:var(--gold);font-size:1rem;text-align:center}
+li.locked{color:var(--muted)}
+li>span:last-child{min-width:0}
+#main{display:flex;flex-direction:column;gap:28px}
+.brief{text-align:left;display:flex;flex-direction:column;gap:18px;padding:30px 22px 26px}
+.brief .label{text-align:center;margin:0}
+.story{margin:0;text-align:center;font-size:1rem;line-height:2;text-wrap:balance}
+.story strong{display:block;margin-top:6px;color:var(--gold);font-size:1.12rem;font-weight:700}
+.rules{gap:6px}
+.rules li{grid-template-columns:1.8rem 1fr;border-color:rgba(201,164,92,.22);font-size:.92rem}
+.rules li .n{font-size:.95rem}
+.rules strong{color:var(--gold);font-weight:600}
+.pairq{margin:0;text-align:center;font-size:1rem;font-weight:600}
+#startBtn{font-family:var(--body);font-size:1.05rem;font-weight:700;letter-spacing:.08em;color:var(--ink);background:var(--gold);border:0;padding:14px 18px;cursor:pointer;width:100%}
+#startBtn:focus-visible{outline:2px solid var(--parch);outline-offset:3px}
+#startBtn:active{transform:translateY(1px)}
+.note{font-size:.78rem;color:var(--muted);text-align:center;margin:0}
+@media (prefers-reduced-motion:no-preference){
+  .card{animation:rise .9s ease-out both}
+  @keyframes rise{from{transform:translateY(8px)}to{transform:none}}
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">THE SECRET MISSION</div>
+    <h1>館の記録</h1>
+    <p class="sub">― 館に隠された秘密 ―</p>
+    <svg class="rule" viewBox="0 0 140 14" aria-hidden="true"><path d="M0 7h56M84 7h56" stroke="currentColor" stroke-width="1" fill="none"/><path d="M70 1l6 6-6 6-6-6z" fill="currentColor"/></svg>
+  </header>
+
+  <section id="brief" class="card brief" hidden>
+    <p class="label" style="margin-top:0">MISSION BRIEFING</p>
+    <p class="story">この館の主人は、ひとつの秘密を残して姿を消した。<br><strong>会場内に、6つのヒントが隠されています。</strong></p>
+    <ol class="rules">
+      <li><span class="n">1</span><span>まず<strong>2人1組のペア</strong>を作ってください</span></li>
+      <li><span class="n">2</span><span>会場内に隠された<strong>6つのQRコード</strong>を探して読み取ってください</span></li>
+      <li><span class="n">3</span><span>6つのうち、本物のヒントは<strong>3つだけ</strong>。共通する秘密を見抜いてください</span></li>
+      <li><span class="n">4</span><span>秘密がわかったら受付へ。<strong>3枚のカード</strong>を選んでください</span></li>
+      <li><span class="n">5</span><span>最後に開けられる箱は<strong>ひとつだけ</strong>です</span></li>
+    </ol>
+    <p class="pairq">ペアは組めましたか？</p>
+    <button id="startBtn" type="button">ペアで挑戦をはじめる</button>
+  </section>
+
+  <div id="main" hidden>
+  <section id="record" class="card" hidden>
+    <p class="no" id="recNo"></p>
+    <p class="label" id="recLabel"></p>
+    <blockquote id="recText"></blockquote>
+    <svg class="seal" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20" fill="currentColor"/><circle cx="22" cy="22" r="15" fill="none" stroke="#c9a45c" stroke-width=".8" opacity=".6"/><text x="22" y="27" text-anchor="middle" font-family="Cinzel,serif" font-size="13" fill="#efe4cc" opacity=".85">M</text></svg>
+  </section>
+
+  <section id="intro" class="card" hidden>
+    <p class="label" style="margin-top:0">INVITATION</p>
+    <blockquote style="font-size:1.05rem">館のあちこちに<br>6つの記録が隠されている。<br>QRコードを探して読み取れ。</blockquote>
+  </section>
+
+  <p class="task">6つの記録のうち、<strong>3つ</strong>だけがひとつの秘密でつながっている。<br>その秘密を見抜き、受付で<strong>3枚のカード</strong>を選べ。</p>
+
+  <section class="ledger" aria-labelledby="ledgerTitle">
+    <h2 id="ledgerTitle">発見した記録</h2>
+    <p class="count"><span id="found">0</span><small> / 6</small></p>
+    <ol id="list"></ol>
+    <p class="note" style="margin-top:12px">この一覧はこのスマホにだけ記録されます。</p>
+  </section>
+  </div>
+</div>
+
+<script>
+(function(){
+  var RECORDS = [
+    {id:"k7q2", no:"Ⅰ",  text:"太陽が姿を消したころ、\n館の主人は最初の客人を迎えた。"},
+    {id:"w2r6", no:"Ⅱ",  text:"地下室には、主人が大切にしていた\n赤いワインが残されていた。"},
+    {id:"b9h4", no:"Ⅲ",  text:"晩餐のテーブルには、\n13本のキャンドルが並んでいた。"},
+    {id:"t5x1", no:"Ⅳ",  text:"館の窓から見えたのは、\n空高く浮かぶ満月だった。"},
+    {id:"m3v8", no:"Ⅴ",  text:"古い時計の針は、\n23時を指したまま止まっていた。"},
+    {id:"p8j3", no:"Ⅵ",  text:"主人の肖像画には、\n右手に古びた鍵が描かれていた。"}
+  ];
+  var KEY = "secret-mission-found";
+  function load(){ try{ return JSON.parse(localStorage.getItem(KEY)||"[]"); }catch(e){ return []; } }
+  function save(a){ try{ localStorage.setItem(KEY, JSON.stringify(a)); }catch(e){} }
+  function esc(s){ return s.replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];}); }
+  function br(s){ return esc(s).replace(/\n/g,"<br>"); }
+
+  function render(){
+    var tok = new URLSearchParams(location.search).get("r") || (location.hash||"").replace(/^#/,"");
+    var rec = null;
+    for (var i=0;i<RECORDS.length;i++) if (RECORDS[i].id===tok) rec = RECORDS[i];
+    var found = load();
+    if (rec){
+      if (found.indexOf(rec.id)<0){ found.push(rec.id); save(found); }
+      document.getElementById("recNo").textContent = rec.no;
+      document.getElementById("recLabel").textContent = "RECORD " + rec.no;
+      document.getElementById("recText").innerHTML = br(rec.text);
+      document.getElementById("record").hidden = false;
+      document.getElementById("intro").hidden = true;
+      document.title = "館の記録 " + rec.no;
+    } else {
+      document.getElementById("record").hidden = true;
+      document.getElementById("intro").hidden = false;
+    }
+    var n = 0, html = "";
+    RECORDS.forEach(function(r){
+      var got = found.indexOf(r.id)>=0;
+      if (got) n++;
+      html += '<li class="'+(got?"":"locked")+'"><span class="n">'+r.no+'</span><span>'+(got?br(r.text):"まだ見つけていない")+'</span></li>';
+    });
+    document.getElementById("list").innerHTML = html;
+    document.getElementById("found").textContent = n;
+  }
+  // ブリーフィング（ペア作成の案内）は端末ごとに最初の1回だけ表示する
+  var BKEY = "secret-mission-briefed", briefedMem = false;
+  function isBriefed(){ try{ return localStorage.getItem(BKEY)==="1" || briefedMem; }catch(e){ return briefedMem; } }
+  function setBriefed(){ briefedMem = true; try{ localStorage.setItem(BKEY,"1"); }catch(e){} }
+  function gate(){
+    var b = isBriefed();
+    document.getElementById("brief").hidden = b;
+    document.getElementById("main").hidden = !b;
+    if (b) render();
+  }
+  document.getElementById("startBtn").addEventListener("click", function(){
+    setBriefed(); gate(); window.scrollTo(0,0);
+  });
+  window.addEventListener("hashchange", gate);
+  gate();
+})();
+</script>
+
+</body>
+</html>
